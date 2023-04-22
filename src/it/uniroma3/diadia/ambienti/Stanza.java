@@ -9,18 +9,13 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * 
  * @author docente di POO  & 536969
  * @see Attrezzo
- * @version 1.0
+ * @version 2.0
  */
 
 public class Stanza {
 
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
-
-	public int getNumeroAttrezzi() {
-		return numeroAttrezzi;
-	}
-
 
 	private String nome;
 	private Attrezzo[] attrezzi;
@@ -203,6 +198,15 @@ public class Stanza {
 		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
 			direzioni[i] = this.direzioni[i];
 		return direzioni;
+	}
+	
+	public int getNumeroAttrezzi() {
+		return numeroAttrezzi;
+	}
+
+
+	public static int getNumeroMassimoAttrezzi() {
+		return NUMERO_MASSIMO_ATTREZZI;
 	}
 
 }

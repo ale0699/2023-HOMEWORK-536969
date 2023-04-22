@@ -39,5 +39,8 @@ public class Giocatore {
 	public Borsa getBorsa() {
 		return borsa;
 	}
-
+	
+	public void setBorsa(Borsa borsa) {
+		this.borsa = borsa;
+	}
 }

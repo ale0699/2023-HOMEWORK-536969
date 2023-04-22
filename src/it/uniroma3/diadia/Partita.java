@@ -9,7 +9,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  *
  * @author docente di POO & 536969
  * @see Stanza
- * @version 1.0
+ * @version 2.0
  */
 
 public class Partita {
@@ -108,6 +108,14 @@ public class Partita {
 	 */
 	public Giocatore getGiocatore() {
 		return this.giocatore;
+	}
+
+	public boolean giocatoreIsVivo() {
+		if(this.getCfu()>0) {
+			
+			return true;
+		}
+		return false;
 	}
 
 }

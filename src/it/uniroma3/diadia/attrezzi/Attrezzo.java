@@ -9,7 +9,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  *
  * @author  docente di POO & 536969
  * @see Stanza
- * @version 1.0
+ * @version 2.0
  */
 public class Attrezzo {
 
