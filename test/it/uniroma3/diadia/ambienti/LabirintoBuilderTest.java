@@ -1,6 +1,9 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +16,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.DiaDia;
+import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class LabirintoBuilderTest {
@@ -335,5 +340,61 @@ public class LabirintoBuilderTest {
 		Attrezzo a2 = new Attrezzo("lanterna",1);
 		List<Attrezzo> listaAttrezziCorridoio = new ArrayList<>(corridoio.getAttrezzi());
 		assertEquals(Arrays.asList(a1,a2),listaAttrezziCorridoio);
+	}
+	
+	@Test
+	public void testIOSimulatorPartitaCompleta() {
+		
+		Labirinto labirintoCompleto = new LabirintoBuilder()
+				.addStanzaIniziale("Ingresso")
+				.addStanzaVincente("Cucina")
+				.addAttrezzo("Tavolino", 3)
+				.addStanza("Salone")
+				.addAttrezzo("Tv", 10)
+				.addStanza("Corridoio")
+				.addAttrezzo("Laptop", 1)
+				.addAdiacenza("Ingresso", "Corridoio", "nord")
+				.addAdiacenza("Corridoio", "Ingresso", "sud")
+				.addAdiacenza("Corridoio", "Cucina", "nord")
+				.addAdiacenza("Cucina", "Corridoio", "sud")
+				.addAdiacenza("Corridoio", "Salone", "est")
+				.addAdiacenza("Salone", "Corridoio", "ovest")
+				.addAdiacenza("Salone", "Cucina", "est")
+				.addAdiacenza("Cucina", "Salone", "ovest")
+				.getLabirinto();
+		
+		List<String> righeDaLeggere = new ArrayList<>();
+		righeDaLeggere.add("vai nord");
+		righeDaLeggere.add("guarda");
+		righeDaLeggere.add("vai ovest");
+		righeDaLeggere.add("vai est");
+		righeDaLeggere.add("prendi Tv");
+		righeDaLeggere.add("vai est");
+		
+		IOSimulator io = new IOSimulator(righeDaLeggere);
+		DiaDia diaDia = new DiaDia(labirintoCompleto, io);
+		diaDia.gioca();
+		
+		assertTrue(io.hasNextMessaggio());
+		assertEquals(DiaDia.MESSAGGIO_BENVENUTO,io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Corridoio",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals(labirintoCompleto.getStanzaIniziale().getMapStanzeAdiacenti().get("nord").toString(),io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Hai ancora 19 CFU!",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Borsa vuota",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Direzione inesistente",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Salone",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Attrezzo Tv preso e messo all'interno della borsa",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Cucina",io.nextMessaggio());
+		assertTrue(io.hasNextMessaggio());
+		assertEquals("Hai vinto!",io.nextMessaggio());
+		assertFalse(io.hasNextMessaggio());
 	}
 }
