@@ -9,7 +9,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  *
  * @author docente di POO & 536969
  * @see Stanza
- * @version 2.0
+ * @version 3.0
  */
 
 public class Partita {
@@ -20,14 +20,16 @@ public class Partita {
 
 	private boolean finita;
 
-	public Partita() {
-
-		this.labirinto = new Labirinto();
+	public Partita(Labirinto labirinto) {
+		
+		this.labirinto = labirinto;
 		this.stanzaCorrente = this.labirinto.getStanzaIniziale();
 		this.giocatore = new Giocatore();
-
-		this.finita = false;
-
+		this.finita=false;
+	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto = labirinto;
 	}
 
 	/**

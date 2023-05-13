@@ -2,6 +2,9 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +12,8 @@ import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -17,14 +22,18 @@ class ComandoPosaTest {
 	private Comando comandoPosa;
 	private Partita partita;
 	private Stanza stanzaVuota;
+	private Labirinto labirinto;
 	
 	@BeforeEach
 	public void setUp() {
 		
 		this.comandoPosa = new ComandoPosa();
 		this.comandoPosa.setIO(new IOConsole());
-		
-		this.partita = new Partita();
+		this.labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Inizio")
+				.addStanzaVincente("Vincente")
+				.getLabirinto();
+		this.partita = new Partita(labirinto);
 		
 		this.stanzaVuota = new Stanza("StanzaVuota");
 		this.partita.setStanzaCorrente(stanzaVuota);
@@ -61,7 +70,7 @@ class ComandoPosaTest {
 		
 		for(int i=0; i<10; i++) {
 			
-			stanzaPiena.addAttrezzo(new Attrezzo("Attrezzo random", 5));
+			stanzaPiena.addAttrezzo(new Attrezzo("Attrezzo random"+i, 5));
 		}
 		
 		this.comandoPosa.setParametro("ascia");
@@ -72,9 +81,12 @@ class ComandoPosaTest {
 	
 	@Test
 	public void testIoSimulatorComandoPosa() {
-		String[] righeDaLeggere = {"posa ascia","fine"};
+		//String[] righeDaLeggere = {"posa ascia","fine"};
+		List<String> righeDaLeggere = new ArrayList<>();
+		righeDaLeggere.add("posa ascia");
+		righeDaLeggere.add("fine");
 		IOSimulator io = new IOSimulator(righeDaLeggere);
-		DiaDia diadia = new DiaDia(io);
+		DiaDia diadia = new DiaDia(this.labirinto,io);
 		diadia.gioca();
 		
 		assertTrue(io.hasNextMessaggio());

@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
@@ -16,6 +18,7 @@ class ComandoPrendiTest {
 	private Comando comandoPrendi;
 	private Partita partita;
 	private Stanza stanza;
+	private Labirinto labirinto;
 	
 	@BeforeEach
 	public void setUp() {
@@ -23,7 +26,11 @@ class ComandoPrendiTest {
 		this.comandoPrendi = new ComandoPrendi();
 		this.comandoPrendi.setIO(new IOConsole());
 		
-		this.partita = new Partita();
+		this.labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Inizio")
+				.addStanzaVincente("Vincente")
+				.getLabirinto();
+		this.partita = new Partita(labirinto);
 		
 		this.stanza = new Stanza("Stanza con un'ascia");
 		this.partita.setStanzaCorrente(stanza);

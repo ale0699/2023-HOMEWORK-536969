@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collection;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +91,7 @@ class StanzaTest {
 	@Test
 	public void testGetAttrezziSuUnaStanzaNonVuota() {
 		
-		Attrezzo[] attrezziStanza = this.stanza.getAttrezzi();
+		Collection<Attrezzo> attrezziStanza = this.stanza.getAttrezzi();
 		boolean foundElementAttrezzo = false;
 		
 		for(Attrezzo a : attrezziStanza) {
@@ -119,10 +121,10 @@ class StanzaTest {
 		//riempio la stanza con degli attrezzi random
 		for(int i=0; i<NUMERO_MASSIMO_ATTREZZI-this.numeroAttrezzi; i++) {
 			
-			Attrezzo attrezzoRandom = new Attrezzo("Nuovo attrezzo random", 10);
+			Attrezzo attrezzoRandom = new Attrezzo("C"+i, 10);
 			this.stanza.addAttrezzo(attrezzoRandom);
 		}
-		
+
 		Attrezzo ascia = new Attrezzo("Ascia", 10);
 		assertFalse(this.stanza.addAttrezzo(ascia));
 		

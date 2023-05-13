@@ -12,6 +12,7 @@ public class ComandoGuarda implements Comando {
 		
 		this.io.mostraMessaggio(partita.getStanzaCorrente().toString());
 		this.io.mostraMessaggio("Hai ancora " + partita.getGiocatore().getCfu() + " CFU!");
+		this.io.mostraMessaggio(partita.getGiocatore().getBorsa().toString());;
 	}
 
 	@Override

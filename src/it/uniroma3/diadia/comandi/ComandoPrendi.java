@@ -20,7 +20,7 @@ public class ComandoPrendi implements Comando {
 			Attrezzo attrezzoDaPrelevare = stanzaCorrente.getAttrezzo(this.nomeAttrezzo);
 			int pesoRimanenteDellaBorsa = partita.getGiocatore().getBorsa().getPesoMax() - partita.getGiocatore().getBorsa().getPeso();
 
-			if(attrezzoDaPrelevare.getPeso()<=pesoRimanenteDellaBorsa && partita.getGiocatore().getBorsa().getNumeroAttrezzi()<=10) {
+			if(attrezzoDaPrelevare.getPeso()<=pesoRimanenteDellaBorsa ) {
 
 				partita.getGiocatore().getBorsa().addAttrezzo(attrezzoDaPrelevare);
 				partita.getStanzaCorrente().removeAttrezzo(attrezzoDaPrelevare.getNome());
@@ -28,7 +28,7 @@ public class ComandoPrendi implements Comando {
 			}
 			else {
 
-				this.io.mostraMessaggio("La borsa è piena oppure ha raggiunto il peso massimo");
+				this.io.mostraMessaggio("La borsa ha raggiunto il peso massimo");
 			}
 
 		} 
