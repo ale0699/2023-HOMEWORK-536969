@@ -1,9 +1,11 @@
 package it.uniroma3.diadia;
 
+import java.util.Scanner;
+
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandi;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 /**
  * Classe principale di diadia, un semplice gioco di ruolo ambientato al dia.
@@ -13,7 +15,7 @@ import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
  *
  * @author docente di POO (da un'idea di Michael Kolling and David J. Barnes) & 536969
  * 
- * @version 3.0
+ * @version 4.0
  */
 
 public class DiaDia {
@@ -37,12 +39,12 @@ public class DiaDia {
 	}
 
 	public void gioca() {
-		String istruzione;
-
+		String istruzione = null;
 		this.io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 
-		do
+		do {
 			istruzione = this.io.leggiRiga();
+		}
 		while (!processaIstruzione(istruzione));
 	}
 
@@ -53,8 +55,8 @@ public class DiaDia {
 	 *         altrimenti
 	 */
 	private boolean processaIstruzione(String istruzione) {
-		Comando comandoDaEseguire;
-		FabbricaDiComandiFisarmonica factory = new FabbricaDiComandiFisarmonica();
+		AbstractComando comandoDaEseguire;
+		FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
 		comandoDaEseguire = factory.costruisciComando(istruzione,this.io);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
@@ -63,16 +65,19 @@ public class DiaDia {
 			this.io.mostraMessaggio("Hai esaurito i CFU...");
 		return this.partita.isFinita();
 		}
-
-
-	public static void main(String[] argc) {
-		IO io = new IOConsole();
-		Labirinto labirinto = new LabirintoBuilder() 
-						.addStanzaIniziale("LabCampusOne")
-						.addStanzaVincente("Biblioteca")
-						.addAdiacenza("LabCampusOne","Biblioteca","ovest")
-						.getLabirinto();
+	
+	public static void main(String[] args) {
+		Scanner scannerDiLinee = new Scanner(System.in);
+		IO io = new IOConsole(scannerDiLinee);
+		Labirinto labirinto = Labirinto.newBuilder("labirinto1.txt").getLabirinto();
 		DiaDia gioco = new DiaDia(labirinto, io);
-		gioco.gioca();
+		try {
+			gioco.gioca();
+		} catch (Exception e) {
+			io.mostraMessaggio("Errore!");
+		} finally {
+			scannerDiLinee.close();
+		}
 	}
+
 }

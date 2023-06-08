@@ -9,7 +9,7 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  *
  * @author docente di POO & 536969
  * @see Stanza
- * @version 3.0
+ * @version 4.0
  */
 
 public class Partita {

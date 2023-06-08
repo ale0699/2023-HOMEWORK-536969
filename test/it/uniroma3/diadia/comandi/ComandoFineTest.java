@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.comandi;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.DiaDia;
 import it.uniroma3.diadia.IOSimulator;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 
 class ComandoFineTest {
 
@@ -20,7 +21,7 @@ class ComandoFineTest {
 		List<String> righeDaLeggere = new ArrayList<>();
 		righeDaLeggere.add("fine");
 		IOSimulator io = new IOSimulator(righeDaLeggere);
-		Labirinto labirinto = new LabirintoBuilder()
+		Labirinto labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("Inizio")
 				.addStanzaVincente("Vincente")
 				.getLabirinto();

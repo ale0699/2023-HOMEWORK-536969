@@ -10,7 +10,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  *
  * @author  docente di POO & 536969
  * @see Stanza
- * @version 3.0
+ * @version 4.0
  */
 public class Attrezzo implements Comparable<Attrezzo>{
 
@@ -41,6 +41,10 @@ public class Attrezzo implements Comparable<Attrezzo>{
 	 */
 	public int getPeso() {
 		return this.peso;
+	}
+
+	public void setPeso(int peso) {
+		this.peso = peso;
 	}
 
 	/**

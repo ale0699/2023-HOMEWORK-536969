@@ -1,0 +1,11 @@
+Stanze:biblioteca,N10,N11,atrio,LabCampusOne
+Inizio:atrio
+Vincente:biblioteca
+Attrezzi:martello 10 biblioteca, pinza 2 N10
+Uscite:atrio nord biblioteca, atrio ovest LabCampusOne, LabCampusOne est atrio, biblioteca sud atrio, atrio est N10, N10 ovest atrio
+Buia:N14 lanterna, N18 torcia
+Bloccata:N20 nord chiave
+Magica:N16
+Strega:N10 Strega sonoLaStrega
+Cane:
+Mago:

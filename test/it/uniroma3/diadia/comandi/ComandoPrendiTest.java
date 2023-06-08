@@ -1,6 +1,9 @@
 package it.uniroma3.diadia.comandi;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Scanner;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,14 +11,13 @@ import org.junit.jupiter.api.Test;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Borsa;
 
 class ComandoPrendiTest {
 
-	private Comando comandoPrendi;
+	private AbstractComando comandoPrendi;
 	private Partita partita;
 	private Stanza stanza;
 	private Labirinto labirinto;
@@ -24,9 +26,9 @@ class ComandoPrendiTest {
 	public void setUp() {
 		
 		this.comandoPrendi = new ComandoPrendi();
-		this.comandoPrendi.setIO(new IOConsole());
+		this.comandoPrendi.setIO(new IOConsole(new Scanner(System.in)));
 		
-		this.labirinto = new LabirintoBuilder()
+		this.labirinto = new Labirinto.LabirintoBuilder()
 				.addStanzaIniziale("Inizio")
 				.addStanzaVincente("Vincente")
 				.getLabirinto();

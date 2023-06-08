@@ -19,7 +19,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoVai() {
 		
-		Comando comandoVai = this.factory.costruisciComando("vai sud", null);
+		AbstractComando comandoVai = this.factory.costruisciComando("vai sud", null);
 		
 		assertEquals("vai", comandoVai.getNome());
 		assertEquals("sud", comandoVai.getParametro());
@@ -28,7 +28,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoPrendi() {
 		
-		Comando comandoPrendi = this.factory.costruisciComando("prendi osso", null);
+		AbstractComando comandoPrendi = this.factory.costruisciComando("prendi osso", null);
 		
 		assertEquals("prendi", comandoPrendi.getNome());
 		assertEquals("osso", comandoPrendi.getParametro());
@@ -37,7 +37,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoPosa() {
 		
-		Comando comandoPosa = this.factory.costruisciComando("posa osso", null);
+		AbstractComando comandoPosa = this.factory.costruisciComando("posa osso", null);
 		
 		assertEquals("posa", comandoPosa.getNome());
 		assertEquals("osso", comandoPosa.getParametro());
@@ -46,7 +46,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoAiuto() {
 		
-		Comando comandoAiuto = this.factory.costruisciComando("aiuto", null);
+		AbstractComando comandoAiuto = this.factory.costruisciComando("aiuto", null);
 		
 		assertEquals("aiuto", comandoAiuto.getNome());
 		assertNull(comandoAiuto.getParametro());
@@ -55,7 +55,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoFine() {
 		
-		Comando comandoFine = this.factory.costruisciComando("fine", null);
+		AbstractComando comandoFine = this.factory.costruisciComando("fine", null);
 		
 		assertEquals("fine", comandoFine.getNome());
 		assertNull(comandoFine.getParametro());
@@ -64,7 +64,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoGuarda() {
 		
-		Comando comandoGuarda = this.factory.costruisciComando("guarda", null);
+		AbstractComando comandoGuarda = this.factory.costruisciComando("guarda", null);
 		
 		assertEquals("guarda", comandoGuarda.getNome());
 		assertNull(comandoGuarda.getParametro());
@@ -73,7 +73,7 @@ class FabbricaDiComandiFisarmonicaTest {
 	@Test
 	public void testComandoNonValido() {
 		
-		Comando comandoNonValido = this.factory.costruisciComando("", null);
+		AbstractComando comandoNonValido = this.factory.costruisciComando("", null);
 		
 		assertEquals("Non Valido", comandoNonValido.getNome());
 		assertNull(comandoNonValido.getParametro());

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo.
@@ -14,7 +15,7 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * 
  * @author docente di POO  & 536969
  * @see Attrezzo
- * @version 3.0
+ * @version 4.0
  */
 
 public class StanzaProtected {
@@ -24,7 +25,8 @@ public class StanzaProtected {
 
 	private String nome;
 	protected Map<String, Attrezzo> attrezzi; 
-	private Map<String, StanzaProtected> stanzeAdiacenti;
+	private Map<Direzione, StanzaProtected> stanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
@@ -49,7 +51,7 @@ public class StanzaProtected {
 			return;
 		}
 		
-		this.stanzeAdiacenti.put(direzione, stanza);
+		this.stanzeAdiacenti.put(Direzione.valueOf(direzione), stanza);
 	}
 
 	/**
@@ -58,7 +60,14 @@ public class StanzaProtected {
 	 */
 	public StanzaProtected getStanzaAdiacente(String direzione) {
 
-		return this.stanzeAdiacenti.get(direzione);
+		try {
+			
+			return this.stanzeAdiacenti.get(Direzione.valueOf(direzione));
+		}
+		catch(IllegalArgumentException ar) {
+			
+			return null;
+		}
 	}
 
 	/**
@@ -108,11 +117,12 @@ public class StanzaProtected {
 	 * stampadone la descrizione, le uscite e gli eventuali attrezzi contenuti
 	 * @return la rappresentazione stringa
 	 */
+	@Override
 	public String toString() {
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(this.nome);
 		risultato.append("\nUscite: ");
-		for (String direzione : this.stanzeAdiacenti.keySet())
+		for (Direzione direzione : this.stanzeAdiacenti.keySet())
 			if (direzione!=null)
 				risultato.append(" " + direzione);
 		risultato.append("\nAttrezzi nella stanza: ");
@@ -155,7 +165,7 @@ public class StanzaProtected {
 		return this.attrezzi.remove(nomeAttrezzo, attrezzoDaRimuovere);
 	}
 
-	public Set<String> getDirezioni() {
+	public Set<Direzione> getDirezioni() {
 		
 		return this.stanzeAdiacenti.keySet();
 	}
@@ -167,6 +177,14 @@ public class StanzaProtected {
 
 	public static int getNumeroMassimoAttrezzi() {
 		return NUMERO_MASSIMO_ATTREZZI;
+	}
+
+	public AbstractPersonaggio getPersonaggio() {
+		return personaggio;
+	}
+
+	public void setPersonaggio(AbstractPersonaggio personaggio) {
+		this.personaggio = personaggio;
 	}
 
 }
